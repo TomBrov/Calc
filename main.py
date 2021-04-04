@@ -1,13 +1,13 @@
 import PySimpleGUI as sg
 
-bw = {'size': (7, 2), 'font': ('Franklin Gothic Book', 24), 'button_color': ("black", "#F8F8F8")}
-bt = {'size': (7, 2), 'font': ('Franklin Gothic Book', 24), 'button_color': ("black", "#F1EABC")}
-bo = {'size': (15, 2), 'font': ('Franklin Gothic Book', 24), 'button_color': ("black", "#ECA527"), 'focus': True}
+bw = {'size': (10, 2), 'font': ('Franklin Gothic Book', 24), 'button_color': ("black", "#F8F8F8")}
+bt = {'size': (10, 2), 'font': ('Franklin Gothic Book', 24), 'button_color': ("black", "#F1EABC")}
+bo = {'size': (20, 2), 'font': ('Franklin Gothic Book', 24), 'button_color': ("black", "#ECA527"), 'focus': True}
 
 sg.theme('DarkAmber')
 layout = [
-    [sg.Text('PyClac', size=(50, 1), justification='right', background_color="#272533", text_color='white', font=('Franklin Gothic Book', 14, 'bold'))],
-    [sg.Text('0.0000', size=(18, 1), justification='right', background_color='black', text_color='red', font=('Digital-7', 48), relief='sunken', key="_DISPLAY_")],
+    [sg.Text('PyClac', size=(40, 1), justification='right', background_color="#272533", text_color='white', font=('Franklin Gothic Book', 14, 'bold'))],
+    [sg.Text('0.0000', size=(40, 1), justification='center', background_color='black', text_color='red', font=('Digital-7', 48), relief='sunken', key="_DISPLAY_")],
     [sg.Button('C', **bt), sg.Button('CE', **bt), sg.Button('%', **bt), sg.Button("/", **bt)],
     [sg.Button('7', **bw), sg.Button('8', **bw), sg.Button('9', **bw), sg.Button("*", **bt)],
     [sg.Button('4', **bw), sg.Button('5', **bw), sg.Button('6', **bw), sg.Button("-", **bt)],
@@ -15,7 +15,7 @@ layout = [
     [sg.Button('0', **bw), sg.Button('.', **bw), sg.Button('=', **bo, bind_return_key=True)]
             ]
 
-window = sg.Window('PyClac', layout=layout, background_color="#272533", size=(660, 740),
+window = sg.Window('PyClac', layout=layout, background_color="#272533", size=(680, 700),
                    return_keyboard_events=True)
 
 var = {'front': [], 'back': [], 'decimal': False, 'x_val': 0.0, 'y_val': 0.0, 'result': 0.0, 'operator': ''}
@@ -88,4 +88,4 @@ while True:
     if event == '.':
         var['decimal'] = True
     if event == '%':
-        update_display(var['result'] / 100.0)
+        update_display(var['result']/100.0)
