@@ -1,8 +1,8 @@
 import PySimpleGUI as sg
 
-bw = {'size': (10, 2), 'font': ('Franklin Gothic Book', 24), 'button_color': ("black", "#F8F8F8")}
-bt = {'size': (10, 2), 'font': ('Franklin Gothic Book', 24), 'button_color': ("black", "#F1EABC")}
-bo = {'size': (20, 2), 'font': ('Franklin Gothic Book', 24), 'button_color': ("black", "#ECA527"), 'focus': True}
+bw = {'size': (5, 2), 'font': ('Franklin Gothic Book', 24), 'button_color': ("black", "#F8F8F8")}
+bt = {'size': (5, 2), 'font': ('Franklin Gothic Book', 24), 'button_color': ("black", "#F1EABC")}
+bo = {'size': (15, 2), 'font': ('Franklin Gothic Book', 24), 'button_color': ("black", "#ECA527"), 'focus': True}
 
 sg.theme('DarkAmber')
 layout = [
@@ -15,7 +15,7 @@ layout = [
     [sg.Button('0', **bw), sg.Button('.', **bw), sg.Button('=', **bo, bind_return_key=True)]
             ]
 
-window = sg.Window('PyClac', layout=layout, background_color="#272533", size=(680, 700),
+window = sg.Window('PyClac', layout=layout, background_color="#272533", size=(633, 602),
                    return_keyboard_events=True)
 
 var = {'front': [], 'back': [], 'decimal': False, 'x_val': 0.0, 'y_val': 0.0, 'result': 0.0, 'operator': ''}
@@ -70,22 +70,32 @@ def calculate_click():
         clear_click()
 
 
-while True:
-    event, values = window.read()
-    print(event)
-    if event is None:
-        break
-    if event in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
-        number_click(event)
-    if event in ['Escape:27', 'C', 'CE']:
-        clear_click()
-        update_display(0.0)
-        var['result'] = 0.0
-    if event in ['+', '-', '*', '/']:
-        operator_click(event)
-    if event == '=':
-        calculate_click()
-    if event == '.':
-        var['decimal'] = True
-    if event == '%':
-        update_display(var['result']/100.0)
+def main():
+
+    numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    operations = ['+', '-', '*', '/']
+    clear = ['Escape:27', 'C', 'CE']
+
+    while True:
+        event, values = window.read()
+        print(event)
+        if event is None:
+            break
+        elif event in numbers:
+            number_click(event)
+        elif event in clear:
+            clear_click()
+            update_display(0.0)
+            var['result'] = 0.0
+        elif event in operations:
+            operator_click(event)
+        elif event == '=':
+            calculate_click()
+        elif event == '.':
+            var['decimal'] = True
+        elif event == '%':
+            update_display(var['result']/100.0)
+
+
+if __name__ == '__main__':
+    main()
